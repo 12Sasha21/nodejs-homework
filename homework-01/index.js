@@ -1,5 +1,4 @@
 const argv = require("yargs").argv;
-
 const contacts = require("./contacts");
 
 const invokeAction = async ({ action, id, name, email, phone }) => {
@@ -20,7 +19,8 @@ const invokeAction = async ({ action, id, name, email, phone }) => {
       break;
 
     case "remove":
-      // ... id
+      const removeContact = await contacts.removeContact(id);
+      console.log(removeContact);
       break;
 
     default:

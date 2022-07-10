@@ -14,9 +14,16 @@ const getContactById = async (contactId) => {
   return !result ? "contact not found" : result;
 };
 
-// function removeContact(contactId) {
-//   // ...твой код
-// }
+const removeContact = async (contactId) => {
+  const contacts = await listContacts();
+  const idx = contacts.findIndex((item) => item.id == contactId);
+  if (idx === -1) {
+    return null;
+  }
+  const [removeContact] = contacts.splice(idx, 1);
+  await fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
+  return removeContact;
+};
 
 const addContact = async (name, email, phone) => {
   const contacts = await listContacts();
@@ -35,6 +42,6 @@ const addContact = async (name, email, phone) => {
 module.exports = {
   listContacts,
   getContactById,
-  // removeContact,
+  removeContact,
   addContact,
 };
